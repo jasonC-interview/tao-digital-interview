@@ -2,6 +2,7 @@ package org.example.api.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.api.dto.BookInventoryUserDTO;
+import org.example.api.exception.ResourceNotFoundException;
 import org.example.api.mapper.LibraryMapper;
 import org.example.api.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,12 @@ public class BookService {
         return bookRepository.findAll().stream()
                 .map(libraryMapper::toBookInventoryUserDTO)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public BookInventoryUserDTO getBookById(UUID id) {
+        return bookRepository.findById(id)
+                .map(libraryMapper::toBookInventoryUserDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("The book is not found"));
     }
 }
