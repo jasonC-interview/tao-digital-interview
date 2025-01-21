@@ -8,6 +8,8 @@ import org.example.api.mapper.LibraryMapper;
 import org.example.api.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -22,6 +24,12 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "The user is not found with given username or password"
                 ));
+    }
+
+    public UserDTO getUserById(UUID id) {
+        return userRepository.findById(id)
+                .map(libraryMapper::toUserDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("The user is not found with id: " + id));
     }
 
     private boolean passwordMatches(String rawPassword, String storedPassword) {
