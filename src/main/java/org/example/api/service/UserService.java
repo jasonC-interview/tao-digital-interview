@@ -22,7 +22,7 @@ public class UserService {
                 .filter(user -> passwordMatches(loginRequest.getPassword(), user.getPassword()))
                 .map(libraryMapper::toUserDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "The user is not found with given username or password"
+                        "The user is not found with given username and password"
                 ));
     }
 
