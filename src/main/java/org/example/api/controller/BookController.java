@@ -1,12 +1,12 @@
 package org.example.api.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.api.dto.BookInventoryUserDTO;
+import org.example.api.dto.BorrowRequest;
 import org.example.api.service.BookService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,5 +25,11 @@ public class BookController {
     @GetMapping("/{id}")
     public BookInventoryUserDTO getBookById(@PathVariable UUID id) {
         return bookService.getBookById(id);
+    }
+
+    @PutMapping("/borrow")
+    public ResponseEntity<Void> borrowBook(@Valid @RequestBody BorrowRequest request) {
+        bookService.borrowBook(request);
+        return ResponseEntity.accepted().build();
     }
 }
