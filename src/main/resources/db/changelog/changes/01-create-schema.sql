@@ -26,3 +26,4 @@ CREATE TABLE inventory (
 );
 ALTER TABLE inventory ADD CONSTRAINT book_id_key FOREIGN KEY (book_id) REFERENCES book(id);
 ALTER TABLE inventory ADD CONSTRAINT user_id_key FOREIGN KEY (user_id) REFERENCES app_user(id);
+CREATE INDEX IF NOT EXISTS idx_username on app_user(username);
