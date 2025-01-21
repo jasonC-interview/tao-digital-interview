@@ -23,7 +23,7 @@ public class Inventory {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private AppUser user;
+    private User user;
 
     private LocalDateTime loanDate;
 }

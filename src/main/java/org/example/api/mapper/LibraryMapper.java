@@ -1,7 +1,7 @@
 package org.example.api.mapper;
 
 import org.example.api.dto.*;
-import org.example.api.entity.AppUser;
+import org.example.api.entity.User;
 import org.example.api.entity.Book;
 import org.example.api.entity.Inventory;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class LibraryMapper {
         );
     }
 
-    public UserDTO toUserDTO(AppUser user) {
+    public UserDTO toUserDTO(User user) {
         if (user == null) {
             return null;
         }
