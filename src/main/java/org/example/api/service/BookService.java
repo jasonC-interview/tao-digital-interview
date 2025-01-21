@@ -3,6 +3,7 @@ package org.example.api.service;
 import lombok.RequiredArgsConstructor;
 import org.example.api.dto.BookInventoryUserDTO;
 import org.example.api.dto.BorrowRequest;
+import org.example.api.dto.ReturnRequest;
 import org.example.api.entity.Inventory;
 import org.example.api.entity.User;
 import org.example.api.exception.ConflictException;
@@ -53,6 +54,25 @@ public class BookService {
 
         inventory.setUser(user);
         inventory.setLoanDate(LocalDateTime.now());
+        inventoryRepository.save(inventory);
+    }
+
+    @Transactional
+    public void returnBook(ReturnRequest request) {
+        UUID inventoryId = request.getInventoryId();
+        Inventory inventory = inventoryRepository.findByIdWithPessimisticLock(inventoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("The inventory is not found with id: " + inventoryId));
+
+        if (inventory.getUser() == null) {
+            throw new ConflictException("Book is not currently borrowed");
+        }
+
+        if (!inventory.getUser().getId().equals(request.getUserId())) {
+            throw new ConflictException("Book can't be returned by another user");
+        }
+
+        inventory.setUser(null);
+        inventory.setLoanDate(null);
         inventoryRepository.save(inventory);
     }
 }

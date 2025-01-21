@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.api.dto.BookInventoryUserDTO;
 import org.example.api.dto.BorrowRequest;
+import org.example.api.dto.ReturnRequest;
 import org.example.api.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,12 @@ public class BookController {
     @PutMapping("/borrow")
     public ResponseEntity<Void> borrowBook(@Valid @RequestBody BorrowRequest request) {
         bookService.borrowBook(request);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PutMapping("/return")
+    public ResponseEntity<Void> returnBook(@Valid @RequestBody ReturnRequest request) {
+        bookService.returnBook(request);
         return ResponseEntity.accepted().build();
     }
 }
