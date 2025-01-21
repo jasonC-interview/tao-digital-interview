@@ -1,6 +1,7 @@
 package org.example.api.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.api.entity.User;
 import org.example.api.exception.ResourceNotFoundException;
 import org.example.api.repository.UserRepository;
@@ -12,18 +13,27 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
     public User getUserById(UUID userId) {
+        log.debug("Fetching user with id: {}", userId);
         return userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("The user is not found with id: " + userId));
+                .orElseThrow(() -> {
+                    log.error("User not found with id: {}", userId);
+                    return new ResourceNotFoundException("The user is not found with id: " + userId);
+                });
     }
 
     public User validateCredentials(String username, String password) {
+        log.debug("Validating credentials for user: {}", username);
         return userRepository.findByUsername(username)
                 .filter(user -> passwordMatches(password, user.getPassword()))
-                .orElseThrow(() -> new ResourceNotFoundException("Invalid username or password"));
+                .orElseThrow(() -> {
+                    log.warn("Invalid login attempt for user: {}", username);
+                    return new ResourceNotFoundException("Invalid username or password");
+                });
     }
 
     private boolean passwordMatches(String rawPassword, String storedPassword) {
