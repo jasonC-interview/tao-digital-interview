@@ -28,6 +28,6 @@ public class BookService {
     public BookInventoryUserDTO getBookById(UUID id) {
         return bookRepository.findById(id)
                 .map(libraryMapper::toBookInventoryUserDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("The book is not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("The book is not found with id: " + id));
     }
 }
