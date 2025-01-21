@@ -5,11 +5,13 @@ import org.example.api.entity.User;
 import org.example.api.exception.ResourceNotFoundException;
 import org.example.api.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
 
