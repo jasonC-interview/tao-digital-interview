@@ -45,7 +45,7 @@ public class BookService {
         log.debug("Found {} books", books.size());
 
         return books.stream()
-                .map(libraryMapper::toBookInventoryUserDTO)
+                .map(libraryMapper::toBookDetailsDTO)
                 .toList();
     }
 
@@ -53,7 +53,7 @@ public class BookService {
     public BookDetailsDTO getBookById(UUID id) {
         log.debug("Fetching book with id: {}", id);
         return bookRepository.findById(id)
-                .map(libraryMapper::toBookInventoryUserDTO)
+                .map(libraryMapper::toBookDetailsDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("The book is not found with id: " + id));
     }
 

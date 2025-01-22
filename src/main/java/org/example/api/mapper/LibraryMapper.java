@@ -56,7 +56,7 @@ public class LibraryMapper {
         );
     }
 
-    public BookDetailsDTO toBookInventoryUserDTO(Book book) {
+    public BookDetailsDTO toBookDetailsDTO(Book book) {
         if (book == null) {
             return null;
         }
