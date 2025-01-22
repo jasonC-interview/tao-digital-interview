@@ -3,7 +3,7 @@ package org.example.api.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.api.dto.BookInventoryUserDTO;
+import org.example.api.dto.BookDetailsDTO;
 import org.example.api.dto.BorrowRequest;
 import org.example.api.dto.ReturnRequest;
 import org.example.api.service.BookService;
@@ -22,13 +22,13 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public List<BookInventoryUserDTO> getAllBooks() {
+    public List<BookDetailsDTO> getAllBooks() {
         log.info("Retrieving all books");
         return bookService.getAllBooks();
     }
 
     @GetMapping("/{id}")
-    public BookInventoryUserDTO getBookById(@PathVariable UUID id) {
+    public BookDetailsDTO getBookById(@PathVariable UUID id) {
         log.info("Retrieving book with id: {}", id);
         return bookService.getBookById(id);
     }

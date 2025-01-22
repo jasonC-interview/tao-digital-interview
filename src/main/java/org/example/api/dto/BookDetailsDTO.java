@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Value
-public class BookInventoryUserDTO {
+public class BookDetailsDTO {
     UUID id;
     String title;
     String author;

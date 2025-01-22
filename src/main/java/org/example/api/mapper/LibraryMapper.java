@@ -56,12 +56,12 @@ public class LibraryMapper {
         );
     }
 
-    public BookInventoryUserDTO toBookInventoryUserDTO(Book book) {
+    public BookDetailsDTO toBookInventoryUserDTO(Book book) {
         if (book == null) {
             return null;
         }
 
-        return new BookInventoryUserDTO(
+        return new BookDetailsDTO(
                 book.getId(),
                 book.getTitle(),
                 book.getAuthor(),

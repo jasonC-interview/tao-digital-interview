@@ -2,7 +2,7 @@ package org.example.api.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.api.dto.BookInventoryUserDTO;
+import org.example.api.dto.BookDetailsDTO;
 import org.example.api.dto.BorrowRequest;
 import org.example.api.dto.ReturnRequest;
 import org.example.api.entity.Book;
@@ -15,12 +15,10 @@ import org.example.api.repository.BookRepository;
 import org.example.api.repository.InventoryRepository;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.PessimisticLockingFailureException;
-import org.springframework.retry.RetryContext;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
-import org.springframework.retry.context.RetryContextSupport;
 import org.springframework.retry.support.RetrySynchronizationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +39,7 @@ public class BookService {
     private final UserService userService;
 
     @Transactional(readOnly = true)
-    public List<BookInventoryUserDTO> getAllBooks() {
+    public List<BookDetailsDTO> getAllBooks() {
         log.debug("Fetching all books from database");
         List<Book> books = bookRepository.findAll();
         log.debug("Found {} books", books.size());
@@ -52,7 +50,7 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public BookInventoryUserDTO getBookById(UUID id) {
+    public BookDetailsDTO getBookById(UUID id) {
         log.debug("Fetching book with id: {}", id);
         return bookRepository.findById(id)
                 .map(libraryMapper::toBookInventoryUserDTO)
