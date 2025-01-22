@@ -16,7 +16,7 @@ import org.example.api.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,7 +68,7 @@ public class BookService {
         User user = userService.getUserById(userId);
 
         inventory.setUser(user);
-        inventory.setLoanDate(LocalDateTime.now());
+        inventory.setLoanDate(Instant.now());
         inventoryRepository.save(inventory);
         log.info("Book borrowed successfully - inventoryId: {}, userId: {}", inventoryId, userId);
     }

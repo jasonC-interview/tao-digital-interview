@@ -15,6 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
+    // TODO: Implement rate limiting
     private final UserFacadeService userFacadeService;
 
     @PostMapping("/login")

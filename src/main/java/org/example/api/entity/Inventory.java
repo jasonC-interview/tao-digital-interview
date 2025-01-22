@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -25,5 +25,5 @@ public class Inventory {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    private LocalDateTime loanDate;
+    private Instant loanDate;
 }
