@@ -17,8 +17,8 @@ public class UserFacadeService {
 
     public UserDTO login(LoginRequest loginRequest) {
         User user = userService.validateCredentials(
-                loginRequest.getUsername(),
-                loginRequest.getPassword()
+                loginRequest.username(),
+                loginRequest.password()
         );
 
         return libraryMapper.toUserDTO(user);

@@ -69,8 +69,8 @@ public class BookService {
     )
     @Transactional
     public void borrowBook(BorrowRequest borrowRequest) {
-        UUID inventoryId = borrowRequest.getInventoryId();
-        UUID userId = borrowRequest.getUserId();
+        UUID inventoryId = borrowRequest.inventoryId();
+        UUID userId = borrowRequest.userId();
         log.debug("Processing borrow request - userId: {}, inventoryId: {}", userId, inventoryId);
         if (RetrySynchronizationManager.getContext() != null) {
             log.debug("Attempting to borrow book. Attempt number: {}",
@@ -108,8 +108,8 @@ public class BookService {
     )
     @Transactional
     public void returnBook(ReturnRequest request) {
-        UUID inventoryId = request.getInventoryId();
-        UUID userId = request.getUserId();
+        UUID inventoryId = request.inventoryId();
+        UUID userId = request.userId();
         log.debug("Processing return request - userId: {}, inventoryId: {}", userId, inventoryId);
         if (RetrySynchronizationManager.getContext() != null) {
             log.debug("Attempting to return book. Attempt number: {}",
@@ -147,7 +147,7 @@ public class BookService {
         }
 
         log.error("Failed to complete borrow operation after retries. InventoryId: {}, UserId: {}",
-                request.getInventoryId(), request.getUserId(), e);
+                request.inventoryId(), request.userId(), e);
         throw new ConflictException("Unable to complete borrow operation. Please try again later.");
     }
 
@@ -158,7 +158,7 @@ public class BookService {
         }
 
         log.error("Failed to complete return operation after retries. InventoryId: {}, UserId: {}",
-                request.getInventoryId(), request.getUserId(), e);
+                request.inventoryId(), request.userId(), e);
         throw new ConflictException("Unable to complete return operation. Please try again later.");
     }
 }

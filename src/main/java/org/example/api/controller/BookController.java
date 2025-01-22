@@ -36,7 +36,7 @@ public class BookController {
     @PutMapping("/borrow")
     public ResponseEntity<Void> borrowBook(@Valid @RequestBody BorrowRequest request) {
         log.info("Processing borrow request - userId: {}, inventoryId: {}",
-                request.getUserId(), request.getInventoryId());
+                request.userId(), request.inventoryId());
         bookService.borrowBook(request);
         return ResponseEntity.accepted().build();
     }
@@ -44,7 +44,7 @@ public class BookController {
     @PutMapping("/return")
     public ResponseEntity<Void> returnBook(@Valid @RequestBody ReturnRequest request) {
         log.info("Processing return request - userId: {}, inventoryId: {}",
-                request.getUserId(), request.getInventoryId());
+                request.userId(), request.inventoryId());
         bookService.returnBook(request);
         return ResponseEntity.accepted().build();
     }

@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/login")
     public UserDTO login(@Valid @RequestBody LoginRequest loginRequest) {
-        log.info("Processing login request for user: {}", loginRequest.getUsername());
+        log.info("Processing login request for user: {}", loginRequest.username());
         return userFacadeService.login(loginRequest);
     }
 
