@@ -33,7 +33,7 @@ public class UserService {
                 .filter(user -> passwordMatches(password, user.getPassword()))
                 .orElseThrow(() -> {
                     log.warn("Invalid login attempt for user: {}", username);
-                    return new ResourceNotFoundException("Invalid username or password");
+                    return new ResourceNotFoundException("The user is not found with given username and password");
                 });
     }
 
