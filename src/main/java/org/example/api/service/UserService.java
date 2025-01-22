@@ -14,6 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
+// TODO: Consider adding caching for frequently accessed user data
 public class UserService {
     private final UserRepository userRepository;
 
